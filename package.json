@@ -1,7 +1,11 @@
 {
   "name": "km-fresh",
   "private": false,
-  "version": "0.1.0",
+  "version": "0.1.1",
+  "author": {
+    "name": "komeil mohammadian",
+    "email": "komeilmohammadian1376.web@gmail.com"
+  },
   "type": "module",
   "files": [
     "lib",
@@ -29,9 +33,5 @@
     "@types/lodash": "^4.17.7",
     "typescript": "^5.4.5",
     "vite": "^5.2.10"
-  },
-  "dependencies": {
-    "lodash": "^4.17.21",
-    "zod": "^3.23.8"
   }
 }

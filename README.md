@@ -44,13 +44,9 @@ console.log("tiredThemeInStorage", tiredThemeInStorage); // 'light'
 // different between examples just one hook on changing data for hold fresh data
 ```
 
-## dependensies
-
-Required Dependensies is [ZOD](https://zod.dev/)
-
 ## keywords
 
-ref , reactive , signal , computed , trace , fresh
+ref , reactive , signal , computed , trace , fresh , store
 
 ## License
 
