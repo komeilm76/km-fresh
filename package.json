@@ -1,0 +1,37 @@
+{
+  "name": "km-fresh",
+  "private": false,
+  "version": "0.1.0",
+  "type": "module",
+  "files": [
+    "lib",
+    "types",
+    "index.d.ts"
+  ],
+  "main": "./lib/main.umd.cjs",
+  "module": "./lib/main.js",
+  "homepage": "https://github.com/komeilm76/km-fresh",
+  "repository": {
+    "url": "https://github.com/komeilm76/km-fresh"
+  },
+  "types": "./types/main.d.ts",
+  "exports": {
+    "types": "./types/main.d.ts",
+    "import": "./lib/main.js",
+    "require": "./lib/main.umd.cjs"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build && npm run types",
+    "types": "npx -p typescript tsc src/main.ts --declaration --allowJs --emitDeclarationOnly --outDir types"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.17.7",
+    "typescript": "^5.4.5",
+    "vite": "^5.2.10"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "zod": "^3.23.8"
+  }
+}
