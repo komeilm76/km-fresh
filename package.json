@@ -8,12 +8,12 @@
   },
   "type": "module",
   "files": [
-    "lib",
+    "dist",
     "types",
     "index.d.ts"
   ],
-  "main": "./lib/main.umd.cjs",
-  "module": "./lib/main.js",
+  "main": "./dist/main.umd.cjs",
+  "module": "./dist/main.js",
   "homepage": "https://github.com/komeilm76/km-fresh",
   "repository": {
     "url": "https://github.com/komeilm76/km-fresh"
@@ -21,17 +21,30 @@
   "types": "./types/main.d.ts",
   "exports": {
     "types": "./types/main.d.ts",
-    "import": "./lib/main.js",
-    "require": "./lib/main.umd.cjs"
+    "import": "./dist/main.js",
+    "require": "./dist/main.umd.cjs"
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build && npm run types",
-    "types": "npx -p typescript tsc src/main.ts --declaration --allowJs --emitDeclarationOnly --outDir types"
+    "build": "tsc && vite build",
+    "build-ts": "tsc",
+    "types": "npx -p typescript tsc src/main.ts --declaration --allowJs --emitDeclarationOnly --outDir types",
+    "make-release": "npm run build && npx release-it"
   },
   "devDependencies": {
     "@types/lodash": "^4.17.7",
+    "release-it": "^17.6.0",
     "typescript": "^5.4.5",
     "vite": "^5.2.10"
-  }
+  },
+  "keywords": [
+    "typescript",
+    "store",
+    "reactive",
+    "fresh",
+    "ref",
+    "computed",
+    "signals",
+    "trace"
+  ]
 }

@@ -44,10 +44,6 @@ console.log("tiredThemeInStorage", tiredThemeInStorage); // 'light'
 // different between examples just one hook on changing data for hold fresh data
 ```
 
-## keywords
-
-ref , reactive , signal , computed , trace , fresh , store
-
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
