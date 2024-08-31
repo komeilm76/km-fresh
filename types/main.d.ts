@@ -16,7 +16,7 @@ export declare const ref: <T>(initialValue: T) => {
     value: T;
     subscribe(subscriber: () => void): () => boolean;
 };
-declare const _default: {
+declare const kmStorage: {
     computed: <T>(reactives: Record<string, ReturnType<(<T_1>(initialValue: T_1) => {
         value: T_1;
         subscribe(subscriber: () => void): () => boolean;
@@ -36,4 +36,4 @@ declare const _default: {
         subscribe(subscriber: () => void): () => boolean;
     };
 };
-export default _default;
+export default kmStorage;
