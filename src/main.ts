@@ -4,10 +4,10 @@ export const computed = service.fresh.computed;
 export const reactive = service.fresh.reactive;
 export const ref = service.fresh.ref;
 
-const kmStorage = {
+const kmFresh = {
   computed,
   reactive,
   ref,
 };
 
-export default kmStorage;
+export default kmFresh;
