@@ -21,6 +21,14 @@ function ref<T>(initialValue: T) {
       subscribers.add(subscriber);
       return () => subscribers.delete(subscriber);
     },
+
+    get() {
+      return value;
+    },
+    set(newValue: T) {
+      value = newValue;
+      notify();
+    },
   };
 }
 type Reactive<T> = { subscribe: (subscriber: Subscriber) => () => void; value: T };
