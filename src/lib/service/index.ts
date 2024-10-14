@@ -1,4 +1,4 @@
-import fresh from "./fresh";
+import fresh from './fresh';
 
 export default {
   fresh,

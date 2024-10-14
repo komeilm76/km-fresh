@@ -43,7 +43,7 @@ function reactive<T extends object>(target: T): Reactive<T> {
     return new Proxy(obj, {
       get(target, prop) {
         const value = target[prop];
-        if (typeof value === "object" && value !== null) {
+        if (typeof value === 'object' && value !== null) {
           return makeReactive(value);
         }
         return value;
@@ -66,7 +66,10 @@ function reactive<T extends object>(target: T): Reactive<T> {
     },
   };
 }
-function computed<T>(reactives: Record<string, ReturnType<typeof ref | typeof reactive>>, getter: () => T) {
+function computed<T>(
+  reactives: Record<string, ReturnType<typeof ref | typeof reactive>>,
+  getter: () => T
+) {
   let output = ref(getter());
   for (const _key in reactives) {
     if (Object.prototype.hasOwnProperty.call(reactives, _key)) {
