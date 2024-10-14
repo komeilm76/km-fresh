@@ -1,6 +1,6 @@
 {
   "name": "km-fresh",
-  "version": "0.2.9",
+  "version": "0.2.10",
   "description": "km-fresh is a Typescript library for use Fresh data.",
   "main": "build/main/index.js",
   "author": {
