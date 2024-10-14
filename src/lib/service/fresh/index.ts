@@ -1,9 +1,11 @@
-type Subscriber<T> = (e: T) => void;
-function ref<T>(initialValue: T) {
-  let value = initialValue;
-  const subscribers = new Set<Subscriber<T>>();
+type SubscriberOfRef<T1> = (e: T1) => void;
+type SubscriberOfReactive<T2> = (e: T2) => void;
 
-  const notify = (v: T) => {
+function ref<T1>(initialValue: T1) {
+  let value = initialValue;
+  const subscribers = new Set<SubscriberOfRef<T1>>();
+
+  const notify = (v: T1) => {
     subscribers.forEach((subscriber) => subscriber(v));
   };
 
@@ -11,13 +13,13 @@ function ref<T>(initialValue: T) {
     get value() {
       return value;
     },
-    set value(newValue: T) {
+    set value(newValue: T1) {
       if (newValue !== value) {
         value = newValue;
         notify(newValue);
       }
     },
-    subscribe(subscriber: Subscriber<T>) {
+    subscribe(subscriber: SubscriberOfRef<T1>) {
       subscribers.add(subscriber);
       return () => subscribers.delete(subscriber);
     },
@@ -25,23 +27,23 @@ function ref<T>(initialValue: T) {
     get() {
       return value;
     },
-    set(newValue: T) {
+    set(newValue: T1) {
       if (newValue !== value) {
         value = newValue;
         notify(newValue);
       }
     },
-    setHard(newValue: T) {
+    setHard(newValue: T1) {
       value = newValue;
       notify(newValue);
     },
   };
 }
-type Reactive<T> = { subscribe: (subscriber: Subscriber<T>) => () => void; value: T };
-function reactive<T extends object>(target: T): Reactive<T> {
-  const subscribers = new Set<Subscriber<T>>();
 
-  const notify = (v: T) => {
+function reactive<T2 extends object>(target: T2) {
+  const subscribers = new Set<SubscriberOfReactive<T2>>();
+
+  const notify = (v: T2) => {
     subscribers.forEach((subscriber) => subscriber(v));
   };
 
@@ -66,34 +68,34 @@ function reactive<T extends object>(target: T): Reactive<T> {
 
   return {
     value: makeReactive(target),
-    subscribe: (subscriber: Subscriber<T>) => {
+    subscribe: (subscriber: SubscriberOfReactive<T2>) => {
       subscribers.add(subscriber);
       return () => subscribers.delete(subscriber);
     },
   };
 }
 
-type IComputedFunction = <
-  T,
+function computedExample<
+  T3,
   REACTIVS extends Record<string, ReturnType<typeof ref | typeof reactive>>
->(
-  reactives: REACTIVS,
-  getter: (e: REACTIVS) => T
-) => Pick<
-  {
-    value: T;
-    subscribe(subscriber: Subscriber<T>): () => boolean;
-    get(): T;
-    set(newValue: T): void;
-    setHard(newValue: T): void;
-  },
-  'get' | 'value' | 'subscribe'
->;
+>(reactives: REACTIVS, getter: (e: REACTIVS) => T3) {
+  let output = ref(getter(reactives));
+  for (const _key in reactives) {
+    if (Object.prototype.hasOwnProperty.call(reactives, _key)) {
+      const key = _key;
+      const item = reactives[key];
+      item.subscribe(() => {
+        output.setHard(getter(reactives));
+      });
+    }
+  }
+  return output as Pick<typeof output, 'get' | 'value' | 'subscribe'>;
+}
 
 function computed<
-  T,
-  REACTIVS extends Record<string, ReturnType<typeof ref | typeof reactive | IComputedFunction>>
->(reactives: REACTIVS, getter: (e: REACTIVS) => T) {
+  T4,
+  REACTIVS extends Record<string, ReturnType<typeof ref | typeof reactive | typeof computedExample>>
+>(reactives: REACTIVS, getter: (e: REACTIVS) => T4) {
   let output = ref(getter(reactives));
   for (const _key in reactives) {
     if (Object.prototype.hasOwnProperty.call(reactives, _key)) {
