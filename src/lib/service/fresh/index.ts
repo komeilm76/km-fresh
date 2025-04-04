@@ -40,7 +40,7 @@ function ref<T1>(initialValue: T1) {
   };
 }
 
-function reactive<T2 extends object>(target: T2) {
+function reactive<T2 extends object = object>(target: T2) {
   const subscribers = new Set<SubscriberOfReactive<T2>>();
 
   const notify = (v: T2) => {
@@ -77,7 +77,10 @@ function reactive<T2 extends object>(target: T2) {
 
 function computedExample<
   T3,
-  REACTIVS extends Record<string, ReturnType<typeof ref | typeof reactive>>
+  REACTIVS extends Record<string, ReturnType<typeof ref | typeof reactive>> = Record<
+    string,
+    ReturnType<typeof ref | typeof reactive>
+  >
 >(reactives: REACTIVS, getter: (e: REACTIVS) => T3) {
   let output = ref(getter(reactives));
   for (const _key in reactives) {
@@ -94,7 +97,10 @@ function computedExample<
 
 function computed<
   T4,
-  REACTIVS extends Record<string, ReturnType<typeof ref | typeof reactive | typeof computedExample>>
+  REACTIVS extends Record<
+    string,
+    ReturnType<typeof ref | typeof reactive | typeof computedExample>
+  > = Record<string, ReturnType<typeof ref | typeof reactive | typeof computedExample>>
 >(reactives: REACTIVS, getter: (e: REACTIVS) => T4) {
   let output = ref(getter(reactives));
   for (const _key in reactives) {
